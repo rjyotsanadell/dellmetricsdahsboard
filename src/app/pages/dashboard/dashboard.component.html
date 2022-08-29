@@ -1,0 +1,255 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8" style="background: linear-gradient(45deg, black, transparent)!important">
+  <div class="container-fluid">
+    
+    <div class="header-body">
+      <div class="dds__form-group"> <label style="color:white" for="exampleFormControlSelect5">Date Range</label> <select class="dds__form-control" id="exampleFormControlSelect5"> <option label="Choose time slot" value="1">Choose date slot</option> <optgroup class="dds__font-italic" label="Tier 2 group label"> <option label="Last 24hrs" value="2">Last 24hrs</option> <option label="Last 12hrs" value="2">Last 12hrs</option> </optgroup> <optgroup class="dds__font-italic" label="Tier 2 group label"> <option disabled label="Last 5hrs" value="2">Last 5hrs (disabled example)</option> <option label="Tier 2 option" value="2">T</option> </optgroup> <option disabled label="Option 5" value="5">Option 5 (disabled example)</option> </select>
+      </div>
+
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col-xl-4 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Received</h5>
+                  <span class="h2 font-weight-bold mb-0">{{receiveddollar}}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i class="fas fa-chart-bar"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>{{blankOrdersNumber}}</span>
+                <span class="text-nowrap">Since last month</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Cancelled</h5>
+                  <span class="h2 font-weight-bold mb-0">{{cancelleddollar}}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                    <i class="fas fa-chart-pie"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> {{cancelledOrdersNumber}}</span>
+                <span class="text-nowrap">Since last week</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Held</h5>
+                  <span class="h2 font-weight-bold mb-0">{{helddollar}}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> {{releasedOrdersNumber}}</span>
+                <span class="text-nowrap">Since yesterday</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-8 mb-5 mb-xl-0">
+      <div class="card  shadow">
+        <div class="card-header bg-transparent">
+          <div class="row align-items-center">
+            <div class="col">
+              <h6 class="text-uppercase text-muted ls-1 mb-1">Overview</h6>
+              <h2 class="mb-0">Sales Value</h2>
+            </div>
+            <div class="col">
+
+          
+              <ul class="nav nav-pills justify-content-end">
+                <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales"  (click)="data=datasets[0];updateOptions()">
+                  <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked===true}" data-toggle="tab" (click)="clicked=true;clicked1=false">
+                    <span class="d-none d-md-block">Month</span>
+                    <span class="d-md-none">M</span>
+                  </a>
+                </li>
+                <li class="nav-item" data-toggle="chart" data-target="#chart-sales"  (click)="data=datasets[1];updateOptions()">
+                  <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked1===true}" data-toggle="tab" (click)="clicked=false;clicked1=true">
+                    <span class="d-none d-md-block">Week</span>
+                    <span class="d-md-none">W</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Chart -->
+          <div id="chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <div class="row align-items-center">
+            <div class="col">
+              <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
+              <h2 class="mb-0">Total orders</h2>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Chart -->
+          <div style="color:black!important" id="charttype"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-xl-12 mb-5 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Orders Count</h3>
+            </div>
+            <div class="col text-right">
+              <a href="#!" class="btn btn-sm btn-primary">See all</a>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Order Number</th>
+                <th scope="col">SKU</th>
+                <th scope="col">Date</th>
+                <th scope="col">Day</th>
+                <th scope="col">Product</th>
+                <th scope="col">ML</th>
+                <th scope="col">Value</th>
+                <th scope="col">CaseID</th>
+                <th scope="col">Status</th>
+                <th scope="col">Filter</th>
+                <th scope="col">TYPE</th>
+                
+             
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor = "let column of tableData">
+              
+                <td>
+                  {{column.OrderNum}}
+                </td>
+
+                <td>
+                  {{column.SKU}}
+                </td>
+
+                <td>
+                  {{column.Date}}
+                </td>
+                <td>
+                  {{column.Day}}
+                </td>
+
+                <td>
+                  {{column.Product}}
+                </td>
+
+                <td>
+                  {{column.ML}}
+                </td>
+
+                <td>
+                  {{column.Value}}
+                </td>
+                <td>
+                  {{column.CaseID}}
+                </td>
+
+                <td>
+                  {{column.Status}}
+                </td>
+                <td>
+                  {{column.Filter}}
+                </td>
+
+                <td>
+                  {{column.TYPE}}
+                </td>
+
+               
+
+
+
+
+                
+
+
+                
+              
+              </tr>
+              <tr>
+                <th scope="row">
+                  /argon/tables.html
+                </th>
+                <td>
+                  2,050
+                </td>
+                <td>
+                  147
+                </td>
+                <td>
+                  <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  /argon/profile.html
+                </th>
+                <td>
+                  1,795
+                </td>
+                <td>
+                  190
+                </td>
+                <td>
+                  <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
